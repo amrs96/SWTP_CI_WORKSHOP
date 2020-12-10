@@ -1,0 +1,22 @@
+name: Environment Variables
+env :
+  WORKFLOW_VAR: 'custom Workflow variable '
+  SECRET_VAR: ${{ secrets.SECRET_TOKEN }}
+on: [push]
+jobs:
+  ubuntu:
+    env:
+      JOB_VAR: 'custom job environment variable for ubuntu'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print custom environment variables from ubuntu-latest
+        env:
+          STEP_VAR: 'custom step environment variable for bash'
+        run: |
+          echo "Accessing environment variables in run command"
+          echo $JOB_VAR
+          echo $SECRET_VAR
+          echo " $GITHUB_ACTOR "
+          echo "------------------------------------------------------"
+          echo "Accessing environment variables using env context"
+          echo ${{ env.STEP_VAR }}
